@@ -1,0 +1,74 @@
+<div
+  #container
+  class="dialog-container"
+>
+  <div class="dialog-header">
+    <a class="dialog-icon" (click)="closeDialog()">
+      <img src="assets/icons/close_icon.svg" alt="close"/>
+    </a>
+  </div>
+  <div class="dialog-body">
+    <app-camera-preview
+      #preview
+      [direction]="direction"
+    ></app-camera-preview>
+    <div *ngIf="overlayPath && !pictureBase64"
+         class="image-preview"
+    >
+      <div
+        class="overlay-display"
+        [style.background-image]="'url(' + overlayPath + ')'"
+      ></div>
+    </div>
+    <div
+      *ngIf="pictureBase64"
+      class="image-preview"
+    >
+      <div
+        class="image-display"
+        [style.background-image]="'url(' + pictureBase64 + ')'"
+      ></div>
+    </div>
+  </div>
+  <div class="dialog-footer">
+
+    <div *ngIf="!pictureBase64"
+         class="camera-actions"
+    >
+      <div></div>
+      <div class="btn-take-picture"
+           (click)="takePicture()"
+      >
+        <mat-icon>photo_camera</mat-icon>
+      </div>
+      <div>
+        <button *ngIf="hasTwoCameras"
+          mat-mini-fab
+          color="primary"
+          (click)="changeCamera()"
+        >
+          <mat-icon *ngIf="direction == BACK">camera_front</mat-icon>
+          <mat-icon *ngIf="direction == FRONT">camera_rear</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <div *ngIf="pictureBase64"
+         class="picture-actions"
+    >
+      <button mat-fab
+              color="basic"
+              (click)="reTryPicture()"
+      >
+        <mat-icon>undo</mat-icon>
+      </button>
+      <button mat-fab
+              class="accept-picture"
+              (click)="acceptPicture()"
+      >
+        <mat-icon>check</mat-icon>
+      </button>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,11 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
+@media (max-height: 450px) {
+  :host {
+    height: unset;
+    width: 80%;
+  }
+}
